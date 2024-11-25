@@ -4,6 +4,9 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.em
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +18,24 @@ abstract class TagBuilder {
 
    val inlineTextContentFlow: Flow<Map<String, InlineTextContent>>
       get() = _inlineTextContentFlow.asStateFlow()
+
+   protected fun addInlineTextContent(
+      id: String,
+      placeholderWidth: TextUnit = 1.em,
+      placeholderHeight: TextUnit = 1.em,
+      placeholderVerticalAlign: PlaceholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
+      content: @Composable (String) -> Unit,
+   ) {
+      addInlineTextContent(
+         id = id,
+         placeholder = Placeholder(
+            width = placeholderWidth,
+            height = placeholderHeight,
+            placeholderVerticalAlign = placeholderVerticalAlign,
+         ),
+         content = content,
+      )
+   }
 
    protected fun addInlineTextContent(
       id: String,
