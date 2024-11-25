@@ -26,7 +26,7 @@ open class AnnotatedHtml {
    fun parse(html: String): AnnotatedString {
       val body = Jsoup.parse(html).body()
       return buildAnnotatedString {
-         parseElement(body)
+         parseElement(body, null)
       }
    }
 
@@ -53,13 +53,13 @@ open class AnnotatedHtml {
       addBuilder("u") { Tag_u() }
    }
 
-   private fun AnnotatedString.Builder.parseElement(element: Element) {
+   private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: TagBuilder?) {
       for (node in element.childNodes()) {
          when (node) {
             is TextNode -> {
                val parent = node.parent()
                if (parent is Element) {
-                  getBuilder(parent.tagName())?.buildText(
+                  tagBuilder?.buildText(
                      node = node,
                      builder = this,
                      text = node.text()
@@ -79,7 +79,7 @@ open class AnnotatedHtml {
                )
 
                val start = length
-               parseElement(node)
+               parseElement(node, builder)
                val end = length
 
                builder?.afterElement(
