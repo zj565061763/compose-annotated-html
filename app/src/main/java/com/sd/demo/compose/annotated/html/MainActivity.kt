@@ -28,8 +28,9 @@ class MainActivity : ComponentActivity() {
                listActivity = listOf(
                   Sample_common::class.java,
                   Sample_a::class.java,
-                  Sample_heading::class.java,
+                  Sample_p::class.java,
                   Sample_br::class.java,
+                  Sample_heading::class.java,
                ),
                onClickActivity = {
                   startActivity(Intent(this, it))

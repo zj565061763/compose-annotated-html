@@ -24,8 +24,9 @@
 
         <activity android:name=".Sample_common" />
         <activity android:name=".Sample_a" />
-        <activity android:name=".Sample_heading" />
+        <activity android:name=".Sample_p" />
         <activity android:name=".Sample_br" />
+        <activity android:name=".Sample_heading" />
 
     </application>
 
