@@ -25,6 +25,14 @@ android {
       freeCompilerArgs += "-module-name=$libGroupId.$libArtifactId"
    }
 
+   buildFeatures {
+      compose = true
+   }
+
+   composeOptions {
+      kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+   }
+
    publishing {
       singleVariant("release") {
          withSourcesJar()

@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
                   Sample_p::class.java,
                   Sample_br::class.java,
                   Sample_heading::class.java,
+                  Sample_custom::class.java,
                ),
                onClickActivity = {
                   startActivity(Intent(this, it))
