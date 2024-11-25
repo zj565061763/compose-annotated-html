@@ -57,10 +57,8 @@ open class AnnotatedHtml {
       for (node in element.childNodes()) {
          when (node) {
             is TextNode -> {
-               val parent = node.parent()
-               if (parent is Element) {
-                  tagBuilder?.buildText(
-                     node = node,
+               if (tagBuilder != null) {
+                  tagBuilder.buildText(
                      builder = this,
                      text = node.text()
                   )

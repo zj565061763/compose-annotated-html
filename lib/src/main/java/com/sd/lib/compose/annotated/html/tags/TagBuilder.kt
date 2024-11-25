@@ -5,7 +5,6 @@ import org.jsoup.nodes.Node
 
 abstract class TagBuilder {
    open fun buildText(
-      node: Node,
       builder: AnnotatedString.Builder,
       text: String,
    ) {
