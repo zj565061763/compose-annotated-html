@@ -19,8 +19,8 @@ import com.sd.lib.compose.annotated.html.tags.Tag_i
 import com.sd.lib.compose.annotated.html.tags.Tag_p
 import com.sd.lib.compose.annotated.html.tags.Tag_strong
 import com.sd.lib.compose.annotated.html.tags.Tag_u
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.jsoup.Jsoup
@@ -33,7 +33,7 @@ open class AnnotatedHtml {
    private val _tags = mutableMapOf<String, () -> TagBuilder>()
    private val _inlineTextContentFlow = MutableStateFlow<Map<String, InlineTextContent>>(emptyMap())
 
-   val inlineTextContentFlow: Flow<Map<String, InlineTextContent>>
+   val inlineTextContentFlow: StateFlow<Map<String, InlineTextContent>>
       get() = _inlineTextContentFlow.asStateFlow()
 
    fun parse(
