@@ -13,7 +13,6 @@ open class Tag_heading(
    }
 
    override fun afterElement(node: Node, builder: AnnotatedString.Builder, start: Int, end: Int) {
-      builder.append("\n")
       builder.addStyle(
          style = style,
          start = start,

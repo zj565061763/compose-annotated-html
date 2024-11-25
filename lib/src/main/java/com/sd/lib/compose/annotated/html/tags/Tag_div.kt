@@ -7,8 +7,4 @@ open class Tag_div : TagBuilder() {
    override fun beforeElement(node: Node, builder: AnnotatedString.Builder) {
       builder.append("\n")
    }
-
-   override fun afterElement(node: Node, builder: AnnotatedString.Builder, start: Int, end: Int) {
-      builder.append("\n")
-   }
 }
