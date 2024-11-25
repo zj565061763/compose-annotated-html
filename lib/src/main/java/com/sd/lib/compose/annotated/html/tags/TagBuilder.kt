@@ -1,23 +1,16 @@
 package com.sd.lib.compose.annotated.html.tags
 
-import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.em
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.sd.lib.compose.annotated.html.InlineTextContentHolder
 import org.jsoup.nodes.Element
 
 abstract class TagBuilder {
-   private val _inlineTextContentFlow = MutableStateFlow<Map<String, InlineTextContent>>(emptyMap())
-
-   val inlineTextContentFlow: Flow<Map<String, InlineTextContent>>
-      get() = _inlineTextContentFlow.asStateFlow()
+   internal lateinit var inlineTextContentHolder: InlineTextContentHolder
 
    protected fun addInlineTextContent(
       id: String,
@@ -42,13 +35,11 @@ abstract class TagBuilder {
       placeholder: Placeholder,
       content: @Composable (String) -> Unit,
    ) {
-      _inlineTextContentFlow.update {
-         val inlineTextContent = InlineTextContent(
-            placeholder = placeholder,
-            children = content,
-         )
-         it + (id to inlineTextContent)
-      }
+      inlineTextContentHolder.addInlineTextContent(
+         id = id,
+         placeholder = placeholder,
+         content = content,
+      )
    }
 
    open fun buildText(

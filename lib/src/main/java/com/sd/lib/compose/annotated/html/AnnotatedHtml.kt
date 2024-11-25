@@ -1,6 +1,9 @@
 package com.sd.lib.compose.annotated.html
 
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.sp
@@ -16,6 +19,10 @@ import com.sd.lib.compose.annotated.html.tags.Tag_i
 import com.sd.lib.compose.annotated.html.tags.Tag_p
 import com.sd.lib.compose.annotated.html.tags.Tag_strong
 import com.sd.lib.compose.annotated.html.tags.Tag_u
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
@@ -24,6 +31,10 @@ import org.jsoup.parser.Parser
 
 open class AnnotatedHtml {
    private val _tags = mutableMapOf<String, () -> TagBuilder>()
+   private val _inlineTextContentFlow = MutableStateFlow<Map<String, InlineTextContent>>(emptyMap())
+
+   val inlineTextContentFlow: Flow<Map<String, InlineTextContent>>
+      get() = _inlineTextContentFlow.asStateFlow()
 
    fun parse(
       html: String,
@@ -96,5 +107,29 @@ open class AnnotatedHtml {
       }
    }
 
-   private fun getBuilder(tag: String): TagBuilder? = _tags[tag]?.invoke()
+   private fun getBuilder(tag: String): TagBuilder? {
+      return _tags[tag]?.invoke()?.also { tagBuilder ->
+         tagBuilder.inlineTextContentHolder = _inlineTextContentHolder
+      }
+   }
+
+   private val _inlineTextContentHolder = object : InlineTextContentHolder {
+      override fun addInlineTextContent(
+         id: String,
+         placeholder: Placeholder,
+         content: @Composable (String) -> Unit,
+      ) {
+         _inlineTextContentFlow.update {
+            it + (id to InlineTextContent(placeholder, content))
+         }
+      }
+   }
+}
+
+internal interface InlineTextContentHolder {
+   fun addInlineTextContent(
+      id: String,
+      placeholder: Placeholder,
+      content: @Composable (String) -> Unit,
+   )
 }
