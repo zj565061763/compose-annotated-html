@@ -13,22 +13,18 @@ open class Tag_a(
    private val style: SpanStyle = SpanStyle(color = Color.Blue, textDecoration = TextDecoration.Underline),
    private val linkInteractionListener: LinkInteractionListener? = null,
 ) : TagBuilder() {
-   private var _pushLinkIndex: Int? = null
 
-   override fun beforeElement(node: Node, builder: AnnotatedString.Builder) {
+   override fun afterElement(node: Node, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val href = node.attr("href")
       val linkAnnotation = LinkAnnotation.Url(
          url = href,
          styles = TextLinkStyles(style),
          linkInteractionListener = linkInteractionListener,
       )
-      _pushLinkIndex = builder.pushLink(linkAnnotation)
-   }
-
-   override fun afterElement(node: Node, builder: AnnotatedString.Builder, start: Int, end: Int) {
-      _pushLinkIndex?.let {
-         _pushLinkIndex = null
-         builder.pop(it)
-      }
+      builder.addLink(
+         url = linkAnnotation,
+         start = start,
+         end = end,
+      )
    }
 }
