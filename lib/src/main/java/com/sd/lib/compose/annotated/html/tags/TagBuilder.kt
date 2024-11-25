@@ -19,10 +19,14 @@ abstract class TagBuilder {
    protected fun addInlineTextContent(
       id: String,
       placeholder: Placeholder,
-      children: @Composable (String) -> Unit,
+      content: @Composable (String) -> Unit,
    ) {
       _inlineTextContentFlow.update {
-         it + (id to InlineTextContent(placeholder, children))
+         val inlineTextContent = InlineTextContent(
+            placeholder = placeholder,
+            children = content,
+         )
+         it + (id to inlineTextContent)
       }
    }
 
