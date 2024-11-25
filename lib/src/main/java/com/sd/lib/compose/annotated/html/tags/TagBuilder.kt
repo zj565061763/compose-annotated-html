@@ -1,7 +1,7 @@
 package com.sd.lib.compose.annotated.html.tags
 
 import androidx.compose.ui.text.AnnotatedString
-import org.jsoup.nodes.Node
+import org.jsoup.nodes.Element
 
 abstract class TagBuilder {
    open fun buildText(
@@ -12,12 +12,12 @@ abstract class TagBuilder {
    }
 
    open fun beforeElement(
-      node: Node,
+      element: Element,
       builder: AnnotatedString.Builder,
    ) = Unit
 
    open fun afterElement(
-      node: Node,
+      element: Element,
       builder: AnnotatedString.Builder,
       start: Int, end: Int,
    ) = Unit

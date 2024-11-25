@@ -72,7 +72,7 @@ open class AnnotatedHtml {
                val builder = getBuilder(tag)
 
                builder?.beforeElement(
-                  node = node,
+                  element = node,
                   builder = this,
                )
 
@@ -81,7 +81,7 @@ open class AnnotatedHtml {
                val end = length
 
                builder?.afterElement(
-                  node = node,
+                  element = node,
                   builder = this,
                   start = start,
                   end = end,
