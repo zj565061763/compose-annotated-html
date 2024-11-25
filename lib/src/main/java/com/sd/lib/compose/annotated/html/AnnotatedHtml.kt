@@ -20,7 +20,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
 
-class AnnotatedHtml {
+open class AnnotatedHtml {
    private val _tags = mutableMapOf<String, () -> TagBuilder>()
 
    fun parse(html: String): AnnotatedString {
