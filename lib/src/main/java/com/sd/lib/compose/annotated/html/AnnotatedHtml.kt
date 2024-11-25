@@ -19,12 +19,17 @@ import com.sd.lib.compose.annotated.html.tags.Tag_u
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
+import org.jsoup.parser.ParseSettings
+import org.jsoup.parser.Parser
 
 open class AnnotatedHtml {
    private val _tags = mutableMapOf<String, () -> TagBuilder>()
 
-   fun parse(html: String): AnnotatedString {
-      val body = Jsoup.parse(html).body()
+   fun parse(
+      html: String,
+      parser: Parser = Parser.htmlParser().settings(ParseSettings.preserveCase),
+   ): AnnotatedString {
+      val body = Jsoup.parse(html, parser).body()
       return buildAnnotatedString {
          parseElement(body, null)
       }
