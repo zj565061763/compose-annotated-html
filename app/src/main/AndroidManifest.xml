@@ -22,9 +22,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SampleCommon" />
-        <activity android:name=".SampleA" />
-        <activity android:name=".SampleHeading" />
+        <activity android:name=".Sample_common" />
+        <activity android:name=".Sample_a" />
+        <activity android:name=".Sample_heading" />
+        <activity android:name=".Sample_br" />
 
     </application>
 

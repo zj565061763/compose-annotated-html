@@ -4,7 +4,7 @@ import androidx.compose.ui.text.AnnotatedString
 import org.jsoup.nodes.Node
 
 open class Tag_br : TagBuilder() {
-   override fun buildText(node: Node, builder: AnnotatedString.Builder, text: String) {
+   override fun beforeElement(node: Node, builder: AnnotatedString.Builder) {
       builder.append("\n")
    }
 }

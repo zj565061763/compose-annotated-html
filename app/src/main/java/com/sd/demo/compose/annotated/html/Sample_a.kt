@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.sd.demo.compose.annotated.html.theme.AppTheme
 import com.sd.lib.compose.annotated.html.AnnotatedHtml
 
-class SampleA : ComponentActivity() {
+class Sample_a : ComponentActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
