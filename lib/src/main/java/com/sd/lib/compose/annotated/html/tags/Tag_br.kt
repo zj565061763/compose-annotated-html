@@ -6,6 +6,6 @@ import org.jsoup.nodes.Element
 
 open class Tag_br : AnnotatedHtml.Tag() {
    override fun elementStart(builder: AnnotatedString.Builder, element: Element) {
-      builder.append("\n")
+      builder.appendLine()
    }
 }
