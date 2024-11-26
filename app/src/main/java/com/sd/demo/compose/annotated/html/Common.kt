@@ -47,14 +47,14 @@ private class AppAnnotatedHtml : AnnotatedHtml() {
 }
 
 private class AppTag_img : AnnotatedHtml.Tag() {
-   override fun elementStart(element: Element, builder: AnnotatedString.Builder) {
+   override fun elementStart(builder: AnnotatedString.Builder, element: Element) {
       val src = element.attr("src")
       val alt = element.attr("alt")
       builder.appendInlineContent(id = src)
       addInlineTextContent(
          id = src,
-         placeholderWidth = 50.sp,
-         placeholderHeight = 50.sp,
+         placeholderWidth = 36.sp,
+         placeholderHeight = 36.sp,
          placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
          content = {
             Box(

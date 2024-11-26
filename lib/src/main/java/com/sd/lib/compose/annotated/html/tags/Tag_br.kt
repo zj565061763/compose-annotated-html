@@ -5,7 +5,7 @@ import com.sd.lib.compose.annotated.html.AnnotatedHtml
 import org.jsoup.nodes.Element
 
 open class Tag_br : AnnotatedHtml.Tag() {
-   override fun elementStart(element: Element, builder: AnnotatedString.Builder) {
+   override fun elementStart(builder: AnnotatedString.Builder, element: Element) {
       builder.append("\n")
    }
 }

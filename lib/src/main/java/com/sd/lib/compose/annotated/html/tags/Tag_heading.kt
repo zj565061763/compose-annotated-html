@@ -7,9 +7,8 @@ import org.jsoup.nodes.Element
 open class Tag_heading(
    private val style: SpanStyle,
 ) : TagBlock() {
-
-   override fun elementEnd(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
-      super.elementEnd(element, builder, start, end)
+   override fun elementEnd(builder: AnnotatedString.Builder, element: Element, start: Int, end: Int) {
+      super.elementEnd(builder, element, start, end)
       builder.addStyle(
          style = style,
          start = start,

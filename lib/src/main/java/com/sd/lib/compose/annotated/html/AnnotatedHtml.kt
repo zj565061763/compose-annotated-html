@@ -49,8 +49,8 @@ open class AnnotatedHtml {
          val builder = this
          val tag = checkNotNull(newTag("body"))
          tag.elementStart(
-            element = body,
             builder = builder,
+            element = body,
          )
 
          val start = length
@@ -58,8 +58,8 @@ open class AnnotatedHtml {
          val end = length
 
          tag.elementEnd(
-            element = body,
             builder = builder,
+            element = body,
             start = start,
             end = end,
          )
@@ -97,17 +97,17 @@ open class AnnotatedHtml {
          when (node) {
             is TextNode -> {
                parentTag.elementText(
-                  element = parent,
                   builder = builder,
-                  text = node.text(),
+                  element = parent,
+                  textNode = node,
                )
             }
 
             is Element -> {
                newTag(node.tagName())?.also { tag ->
                   tag.elementStart(
-                     element = node,
                      builder = builder,
+                     element = node,
                   )
 
                   val start = builder.length
@@ -115,8 +115,8 @@ open class AnnotatedHtml {
                   val end = builder.length
 
                   tag.elementEnd(
-                     element = node,
                      builder = builder,
+                     element = node,
                      start = start,
                      end = end,
                   )
@@ -146,21 +146,21 @@ open class AnnotatedHtml {
 
    abstract class Tag {
       open fun elementStart(
-         element: Element,
          builder: AnnotatedString.Builder,
+         element: Element,
       ) = Unit
 
       open fun elementText(
-         element: Element,
          builder: AnnotatedString.Builder,
-         text: String,
+         element: Element,
+         textNode: TextNode,
       ) {
-         builder.append(text)
+         builder.append(textNode.text())
       }
 
       open fun elementEnd(
-         element: Element,
          builder: AnnotatedString.Builder,
+         element: Element,
          start: Int, end: Int,
       ) = Unit
 
