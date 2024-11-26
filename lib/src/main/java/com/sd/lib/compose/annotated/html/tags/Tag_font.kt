@@ -2,10 +2,11 @@ package com.sd.lib.compose.annotated.html.tags
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import com.sd.lib.compose.annotated.html.AnnotatedHtml
 import com.sd.lib.compose.annotated.html.libToColor
 import org.jsoup.nodes.Element
 
-open class Tag_font : TagBuilder() {
+open class Tag_font : AnnotatedHtml.Tag() {
    override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val color = element.attr("color").libToColor()
       if (color != null) {

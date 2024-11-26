@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sd.demo.compose.annotated.html.theme.AppTheme
 import com.sd.lib.compose.annotated.html.AnnotatedHtml
-import com.sd.lib.compose.annotated.html.tags.TagBuilder
 
 class Sample_custom : ComponentActivity() {
 
@@ -44,7 +43,7 @@ private fun Content(
    val annotatedHtml = remember { AnnotatedHtml() }
    val annotated = remember(html) {
       annotatedHtml
-         .apply { addBuilder("user") { Tag_user() } }
+         .apply { addTag("user") { Tag_user() } }
          .parse(html)
    }
 
@@ -63,7 +62,7 @@ private fun Content(
    }
 }
 
-private class Tag_user : TagBuilder() {
+private class Tag_user : AnnotatedHtml.Tag() {
    override fun buildText(builder: AnnotatedString.Builder, text: String) {
       builder.appendInlineContent(id = "user")
       addInlineTextContent(

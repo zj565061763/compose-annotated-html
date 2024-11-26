@@ -7,12 +7,13 @@ import androidx.compose.ui.text.LinkInteractionListener
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.style.TextDecoration
+import com.sd.lib.compose.annotated.html.AnnotatedHtml
 import org.jsoup.nodes.Element
 
 open class Tag_a(
    private val style: SpanStyle = SpanStyle(color = Color.Blue, textDecoration = TextDecoration.Underline),
    private val linkInteractionListener: LinkInteractionListener? = null,
-) : TagBuilder() {
+) : AnnotatedHtml.Tag() {
 
    override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val href = element.attr("href")

@@ -4,10 +4,12 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.sd.lib.compose.annotated.html.tags.TagBuilder
 import com.sd.lib.compose.annotated.html.tags.Tag_a
 import com.sd.lib.compose.annotated.html.tags.Tag_b
 import com.sd.lib.compose.annotated.html.tags.Tag_br
@@ -30,7 +32,7 @@ import org.jsoup.parser.ParseSettings
 import org.jsoup.parser.Parser
 
 open class AnnotatedHtml {
-   private val _tags = mutableMapOf<String, () -> TagBuilder>()
+   private val _tags = mutableMapOf<String, () -> Tag>()
    private val _inlineTextContentFlow = MutableStateFlow<Map<String, InlineTextContent>>(emptyMap())
 
    val inlineTextContentFlow: StateFlow<Map<String, InlineTextContent>>
@@ -46,30 +48,30 @@ open class AnnotatedHtml {
       }
    }
 
-   fun addBuilder(tag: String, factory: () -> TagBuilder) {
+   fun addTag(tag: String, factory: () -> Tag) {
       _tags[tag] = factory
    }
 
    init {
-      addBuilder("a") { Tag_a() }
-      addBuilder("b") { Tag_b() }
-      addBuilder("br") { Tag_br() }
-      addBuilder("div") { Tag_div() }
-      addBuilder("em") { Tag_em() }
-      addBuilder("font") { Tag_font() }
-      addBuilder("h1") { Tag_heading(style = SpanStyle(fontSize = 32.sp)) }
-      addBuilder("h2") { Tag_heading(style = SpanStyle(fontSize = 28.sp)) }
-      addBuilder("h3") { Tag_heading(style = SpanStyle(fontSize = 24.sp)) }
-      addBuilder("h4") { Tag_heading(style = SpanStyle(fontSize = 20.sp)) }
-      addBuilder("h5") { Tag_heading(style = SpanStyle(fontSize = 18.sp)) }
-      addBuilder("h6") { Tag_heading(style = SpanStyle(fontSize = 16.sp)) }
-      addBuilder("i") { Tag_i() }
-      addBuilder("p") { Tag_p() }
-      addBuilder("strong") { Tag_strong() }
-      addBuilder("u") { Tag_u() }
+      addTag("a") { Tag_a() }
+      addTag("b") { Tag_b() }
+      addTag("br") { Tag_br() }
+      addTag("div") { Tag_div() }
+      addTag("em") { Tag_em() }
+      addTag("font") { Tag_font() }
+      addTag("h1") { Tag_heading(style = SpanStyle(fontSize = 32.sp)) }
+      addTag("h2") { Tag_heading(style = SpanStyle(fontSize = 28.sp)) }
+      addTag("h3") { Tag_heading(style = SpanStyle(fontSize = 24.sp)) }
+      addTag("h4") { Tag_heading(style = SpanStyle(fontSize = 20.sp)) }
+      addTag("h5") { Tag_heading(style = SpanStyle(fontSize = 18.sp)) }
+      addTag("h6") { Tag_heading(style = SpanStyle(fontSize = 16.sp)) }
+      addTag("i") { Tag_i() }
+      addTag("p") { Tag_p() }
+      addTag("strong") { Tag_strong() }
+      addTag("u") { Tag_u() }
    }
 
-   private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: TagBuilder?) {
+   private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: Tag?) {
       for (node in element.childNodes()) {
          when (node) {
             is TextNode -> {
@@ -107,7 +109,7 @@ open class AnnotatedHtml {
       }
    }
 
-   private fun getBuilder(tag: String): TagBuilder? {
+   private fun getBuilder(tag: String): Tag? {
       return _tags[tag]?.invoke()?.also { tagBuilder ->
          tagBuilder.inlineTextContentHolder = _inlineTextContentHolder
       }
@@ -123,6 +125,58 @@ open class AnnotatedHtml {
             it + (id to InlineTextContent(placeholder, content))
          }
       }
+   }
+
+   abstract class Tag {
+      internal lateinit var inlineTextContentHolder: InlineTextContentHolder
+
+      protected fun addInlineTextContent(
+         id: String,
+         placeholderWidth: TextUnit = 1.em,
+         placeholderHeight: TextUnit = 1.em,
+         placeholderVerticalAlign: PlaceholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
+         content: @Composable (String) -> Unit,
+      ) {
+         addInlineTextContent(
+            id = id,
+            placeholder = Placeholder(
+               width = placeholderWidth,
+               height = placeholderHeight,
+               placeholderVerticalAlign = placeholderVerticalAlign,
+            ),
+            content = content,
+         )
+      }
+
+      protected fun addInlineTextContent(
+         id: String,
+         placeholder: Placeholder,
+         content: @Composable (String) -> Unit,
+      ) {
+         inlineTextContentHolder.addInlineTextContent(
+            id = id,
+            placeholder = placeholder,
+            content = content,
+         )
+      }
+
+      open fun buildText(
+         builder: AnnotatedString.Builder,
+         text: String,
+      ) {
+         builder.append(text)
+      }
+
+      open fun beforeElement(
+         element: Element,
+         builder: AnnotatedString.Builder,
+      ) = Unit
+
+      open fun afterElement(
+         element: Element,
+         builder: AnnotatedString.Builder,
+         start: Int, end: Int,
+      ) = Unit
    }
 }
 

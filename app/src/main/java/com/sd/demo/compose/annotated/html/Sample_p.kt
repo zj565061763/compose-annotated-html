@@ -35,11 +35,11 @@ private fun Content(
    modifier: Modifier = Modifier,
 ) {
    val html = """
-      <p">before</p>
+      <p>before</p>
       <p style="text-align: start;">start</p>
       <p style="text-align: center;">center</p>
       <p style="text-align: end;">end</p>
-      <p">after</p>
+      <p>after</p>
    """.trimIndent()
 
    val annotated = remember(html) { AnnotatedHtml().parse(html) }
