@@ -82,13 +82,21 @@ open class AnnotatedHtml {
       for (node in element.childNodes()) {
          when (node) {
             is TextNode -> {
+               val text = node.text()
                if (tagBuilder != null) {
                   tagBuilder.buildText(
                      builder = this,
-                     text = node.text()
+                     text = text,
                   )
                } else {
-                  append(node.text())
+                  if (element.tagName() == "body"
+                     && node.siblingIndex() == 0
+                     && text.isBlank()
+                  ) {
+                     // Ignore
+                  } else {
+                     append(text)
+                  }
                }
             }
 

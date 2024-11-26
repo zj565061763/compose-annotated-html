@@ -10,7 +10,13 @@ import org.jsoup.nodes.Element
 
 open class TagBlock : AnnotatedHtml.Tag() {
    override fun beforeElement(element: Element, builder: AnnotatedString.Builder) {
-      builder.append("\n")
+      val text = builder.toAnnotatedString().text
+      if (text.isNotBlank()) {
+         val last = text.last().toString()
+         if (last != "\n") {
+            builder.append("\n")
+         }
+      }
    }
 
    override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
