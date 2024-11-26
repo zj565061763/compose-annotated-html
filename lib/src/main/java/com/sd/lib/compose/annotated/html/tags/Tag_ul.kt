@@ -1,3 +1,5 @@
 package com.sd.lib.compose.annotated.html.tags
 
-open class Tag_ul : TagBlock()
+import com.sd.lib.compose.annotated.html.AnnotatedHtml
+
+open class Tag_ul : AnnotatedHtml.Tag()
