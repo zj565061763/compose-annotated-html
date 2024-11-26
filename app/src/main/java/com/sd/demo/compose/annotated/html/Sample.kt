@@ -69,15 +69,8 @@ val htmlContent = """
     
     <p>image:<img src="" alt="" /></p>
     
-    <ul>
-        <li>ul li 1</li>
-        <li>ul li 2</li>
-    </ul>
-    
-    <ol>
-        <li>ol li 1</li>
-        <li>ol li 2</li>
-    </ol>
+    <ul><li>ul li 1</li><li>ul li 2</li></ul>
+    <ol><li>ol li 1</li><li>ol li 2</li></ol>
     
     <blockquote>This is a blockquote.</blockquote>
     
