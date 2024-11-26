@@ -52,27 +52,22 @@ val htmlContent = """
     <h6>h6</h6>
     
     <p style="text-align: start;">start</p>
-    <p style="text-align: center;">
-      center
-      <p style="text-align: start;">
-         center start
-      </p>
+    <p style="text-align: center;">center
+      <p style="text-align: start;">center start</p>
     </p>
     <p style="text-align: end;">end</p>
     
     <p style="color: green;">color</p>
     <p style="background-color: red;">background-color</p>
 
-    <p style="text-decoration: line-through;">decoration</p>
-    <p style="text-decoration: underline;">decoration</p>
+    <p style="text-decoration: line-through;">decoration line through</p>
+    <p style="text-decoration: underline;">decoration underline</p>
     
     <p>b:<b>bbb</b> i:<i>iii</i> u:<u>uuu</u> strong:<strong>strong</strong> em:<em>em</em></p>
     
     <p>test a <a href="https://www.baidu.com">click</a> here</p>
     
-    <p>
-      image:<img src="" alt="" />
-    </p>
+    <p>image:<img src="" alt="" /></p>
     
     <ul>
         <li>ul li 1</li>

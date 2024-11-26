@@ -155,7 +155,7 @@ open class AnnotatedHtml {
          element: Element,
          textNode: TextNode,
       ) {
-         builder.append(textNode.text().trim())
+         builder.append(textNode.text())
       }
 
       open fun elementEnd(
