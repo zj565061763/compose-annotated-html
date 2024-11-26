@@ -74,19 +74,19 @@ open class AnnotatedHtml {
       addTag("u") { Tag_u() }
    }
 
-   private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: Tag?) {
-      for (node in element.childNodes()) {
+   private fun AnnotatedString.Builder.parseElement(parent: Element, tagBuilder: Tag?) {
+      for (node in parent.childNodes()) {
          when (node) {
             is TextNode -> {
                val text = node.text()
                if (tagBuilder != null) {
                   tagBuilder.elementText(
-                     element = element,
+                     element = parent,
                      builder = this,
                      text = text,
                   )
                } else {
-                  if (element.tagName() == "body"
+                  if (parent.tagName() == "body"
                      && node.siblingIndex() == 0
                      && text.isBlank()
                   ) {
