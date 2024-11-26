@@ -9,8 +9,10 @@ import com.sd.lib.compose.annotated.html.styleTextDecoration
 import org.jsoup.nodes.Element
 
 open class TagBlock : AnnotatedHtml.Tag() {
+   private var _startNewLineIndex = -1
+
    override fun elementStart(builder: AnnotatedString.Builder, element: Element) {
-      builder.appendNewLineIfNeed()
+      _startNewLineIndex = builder.appendNewLine()
    }
 
    override fun elementEnd(builder: AnnotatedString.Builder, element: Element, start: Int, end: Int) {
@@ -46,23 +48,24 @@ open class TagBlock : AnnotatedHtml.Tag() {
          )
       }
 
-      if (element.nextElementSibling()?.isBlock == true) {
-         builder.appendLine()
-      } else {
-         builder.appendNewLineIfNeed()
+      builder.appendNewLine().also { endNewLineIndex ->
+         if (_startNewLineIndex == endNewLineIndex) {
+            builder.appendLine()
+         }
       }
    }
 }
 
-private fun AnnotatedString.Builder.appendNewLineIfNeed() {
+private fun AnnotatedString.Builder.appendNewLine(): Int {
    val text = toAnnotatedString().text
-   if (text.isEmpty()) return
+   if (text.isEmpty()) return -1
 
    for (i in text.lastIndex downTo 0) {
       val char = text[i]
-      if (char == '\n') return
+      if (char == '\n') return i
       if (char != ' ') break
    }
 
    appendLine()
+   return length - 1
 }
