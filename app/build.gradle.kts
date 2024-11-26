@@ -8,7 +8,7 @@ android {
    compileSdk = libs.versions.androidCompileSdk.get().toInt()
    defaultConfig {
       targetSdk = libs.versions.androidCompileSdk.get().toInt()
-      minSdk = 21
+      minSdk = 24
       applicationId = "com.sd.demo.compose.annotated.html"
       versionCode = 1
       versionName = "1.0"
