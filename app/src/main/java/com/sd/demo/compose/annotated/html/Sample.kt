@@ -36,15 +36,9 @@ private fun Content(
          .verticalScroll(rememberScrollState())
          .padding(10.dp),
    ) {
-      AndroidTextView(
-         html = htmlContent
-      )
-
+      AppTextView(html = htmlContent)
       HorizontalDivider()
-
-      AppTextView(
-         html = htmlContent
-      )
+      AndroidTextView(html = htmlContent)
    }
 }
 
