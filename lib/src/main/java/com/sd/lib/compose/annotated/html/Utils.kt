@@ -1,9 +1,14 @@
 package com.sd.lib.compose.annotated.html
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import org.jsoup.nodes.Node
+
+internal fun AnnotatedString.Builder.last(): String? {
+   return toAnnotatedString().text.lastOrNull()?.toString()
+}
 
 internal fun Node.styleTextAlign(): TextAlign? {
    val result = sTextAlignRegex.find(style()) ?: return null

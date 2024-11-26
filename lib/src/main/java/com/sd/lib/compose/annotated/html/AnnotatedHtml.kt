@@ -19,11 +19,9 @@ import com.sd.lib.compose.annotated.html.tags.Tag_font
 import com.sd.lib.compose.annotated.html.tags.Tag_heading
 import com.sd.lib.compose.annotated.html.tags.Tag_i
 import com.sd.lib.compose.annotated.html.tags.Tag_li
-import com.sd.lib.compose.annotated.html.tags.Tag_ol
 import com.sd.lib.compose.annotated.html.tags.Tag_p
 import com.sd.lib.compose.annotated.html.tags.Tag_strong
 import com.sd.lib.compose.annotated.html.tags.Tag_u
-import com.sd.lib.compose.annotated.html.tags.Tag_ul
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -71,11 +69,9 @@ open class AnnotatedHtml {
       addTag("h6") { Tag_heading(style = SpanStyle(fontSize = 1.em)) }
       addTag("i") { Tag_i() }
       addTag("li") { Tag_li() }
-      addTag("ol") { Tag_ol() }
       addTag("p") { Tag_p() }
       addTag("strong") { Tag_strong() }
       addTag("u") { Tag_u() }
-      addTag("ul") { Tag_ul() }
    }
 
    private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: Tag?) {
