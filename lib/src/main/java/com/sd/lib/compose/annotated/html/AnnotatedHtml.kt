@@ -47,7 +47,7 @@ open class AnnotatedHtml {
       val body = Jsoup.parse(html, parser).body() ?: return AnnotatedString("")
       return buildAnnotatedString {
          val builder = this
-         val tag = checkNotNull(getTag("body"))
+         val tag = checkNotNull(newTag("body"))
          tag.elementStart(
             element = body,
             builder = builder,
@@ -104,7 +104,7 @@ open class AnnotatedHtml {
             }
 
             is Element -> {
-               getTag(node.tagName())?.also { tag ->
+               newTag(node.tagName())?.also { tag ->
                   tag.elementStart(
                      element = node,
                      builder = builder,
@@ -126,7 +126,7 @@ open class AnnotatedHtml {
       }
    }
 
-   private fun getTag(tagName: String): Tag? {
+   private fun newTag(tagName: String): Tag? {
       return _tags[tagName]?.invoke()?.also { tag ->
          tag.inlineTextContentHolder = _inlineTextContentHolder
       }
