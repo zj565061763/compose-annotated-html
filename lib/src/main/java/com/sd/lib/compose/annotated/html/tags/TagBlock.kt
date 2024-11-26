@@ -46,7 +46,11 @@ open class TagBlock : AnnotatedHtml.Tag() {
          )
       }
 
-      builder.appendNewLineIfNeed()
+      if (element.nextElementSibling()?.isBlock == true) {
+         builder.appendLine()
+      } else {
+         builder.appendNewLineIfNeed()
+      }
    }
 }
 
