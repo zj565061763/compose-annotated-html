@@ -43,10 +43,6 @@ private fun Content(
 }
 
 val htmlContent = """
-<!DOCTYPE html>
-<html>
-<head>
-</head>
 <body>
     <h1>h1</h1>
     <h2>h2</h2>
@@ -87,5 +83,4 @@ val htmlContent = """
         Spacing is preserved.
     </pre>
 </body>
-</html>
 """
