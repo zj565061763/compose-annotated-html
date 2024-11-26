@@ -37,14 +37,25 @@ internal fun Node.styleTextDecoration(): TextDecoration? {
    }
 }
 
+private fun Node.style(): String = attr("style") ?: ""
+
 private fun String?.toComposeColor(): Color? {
    if (isNullOrBlank()) return null
+   sColorMap[this]?.also { return it }
    return kotlin.runCatching {
       Color(android.graphics.Color.parseColor(this@toComposeColor))
    }.getOrNull()
 }
 
-private fun Node.style(): String = attr("style") ?: ""
+private val sColorMap = mapOf(
+   "darkgray" to Color(0xFFA9A9A9),
+   "gray" to Color(0xFF808080),
+   "lightgray" to Color(0xFFD3D3D3),
+   "darkgrey" to Color(0xFFA9A9A9),
+   "grey" to Color(0xFF808080),
+   "lightgrey" to Color(0xFFD3D3D3),
+   "green" to Color(0xFF008000),
+)
 
 private val sTextAlignRegex = getStyleRegex("text-align").toRegex()
 private val sColorRegex = getStyleRegex("color").toRegex()
