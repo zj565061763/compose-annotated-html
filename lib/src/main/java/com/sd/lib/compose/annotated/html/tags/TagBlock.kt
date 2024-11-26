@@ -12,7 +12,7 @@ import org.jsoup.nodes.Element
 open class TagBlock : AnnotatedHtml.Tag() {
    override fun beforeElement(element: Element, builder: AnnotatedString.Builder) {
       val last = builder.last()
-      if (last != null && last != "\n") {
+      if (last != null && last != '\n') {
          builder.append("\n")
       }
    }

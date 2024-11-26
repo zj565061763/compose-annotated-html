@@ -6,8 +6,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import org.jsoup.nodes.Node
 
-internal fun AnnotatedString.Builder.last(): String? {
-   return toAnnotatedString().text.lastOrNull()?.toString()
+internal fun AnnotatedString.Builder.last(): Char? {
+   return toAnnotatedString().text.lastOrNull()
 }
 
 internal fun Node.styleTextAlign(): TextAlign? {
