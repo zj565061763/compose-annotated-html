@@ -61,7 +61,7 @@ private class AppTag_img : AnnotatedHtml.Tag() {
                contentAlignment = Alignment.Center,
                modifier = Modifier
                   .fillMaxSize()
-                  .background(Color.Red.copy(0.2f))
+                  .background(Color.Green.copy(0.5f))
             ) {
                Image(
                   painter = painterResource(R.drawable.cn),
