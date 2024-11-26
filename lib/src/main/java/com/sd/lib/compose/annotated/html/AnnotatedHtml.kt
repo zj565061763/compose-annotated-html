@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.em
 import com.sd.lib.compose.annotated.html.tags.Tag_a
 import com.sd.lib.compose.annotated.html.tags.Tag_b
 import com.sd.lib.compose.annotated.html.tags.Tag_blockquote
+import com.sd.lib.compose.annotated.html.tags.Tag_body
 import com.sd.lib.compose.annotated.html.tags.Tag_br
 import com.sd.lib.compose.annotated.html.tags.Tag_div
 import com.sd.lib.compose.annotated.html.tags.Tag_em
@@ -43,9 +44,25 @@ open class AnnotatedHtml {
       html: String,
       parser: Parser = Parser.htmlParser().settings(ParseSettings.preserveCase),
    ): AnnotatedString {
-      val body = Jsoup.parse(html, parser).body()
+      val body = Jsoup.parse(html, parser).body() ?: return AnnotatedString("")
       return buildAnnotatedString {
-         parseElement(body, null)
+         val builder = this
+         val tag = checkNotNull(getTag("body"))
+         tag.elementStart(
+            element = body,
+            builder = builder,
+         )
+
+         val start = length
+         parseElement(this, body, tag)
+         val end = length
+
+         tag.elementEnd(
+            element = body,
+            builder = builder,
+            start = start,
+            end = end,
+         )
       }
    }
 
@@ -54,6 +71,7 @@ open class AnnotatedHtml {
    }
 
    init {
+      addTag("body") { Tag_body() }
       addTag("a") { Tag_a() }
       addTag("b") { Tag_b() }
       addTag("blockquote") { Tag_blockquote() }
@@ -74,56 +92,43 @@ open class AnnotatedHtml {
       addTag("u") { Tag_u() }
    }
 
-   private fun AnnotatedString.Builder.parseElement(parent: Element, tagBuilder: Tag?) {
+   private fun parseElement(builder: AnnotatedString.Builder, parent: Element, parentTag: Tag) {
       for (node in parent.childNodes()) {
          when (node) {
             is TextNode -> {
-               val text = node.text()
-               if (tagBuilder != null) {
-                  tagBuilder.elementText(
-                     element = parent,
-                     builder = this,
-                     text = text,
-                  )
-               } else {
-                  if (parent.tagName() == "body"
-                     && node.siblingIndex() == 0
-                     && text.isBlank()
-                  ) {
-                     // Ignore
-                  } else {
-                     append(text)
-                  }
-               }
+               parentTag.elementText(
+                  element = parent,
+                  builder = builder,
+                  text = node.text(),
+               )
             }
 
             is Element -> {
-               val tag = node.tagName()
-               val builder = getBuilder(tag)
+               getTag(node.tagName())?.also { tag ->
+                  tag.elementStart(
+                     element = node,
+                     builder = builder,
+                  )
 
-               builder?.elementStart(
-                  element = node,
-                  builder = this,
-               )
+                  val start = builder.length
+                  parseElement(builder, node, tag)
+                  val end = builder.length
 
-               val start = length
-               parseElement(node, builder)
-               val end = length
-
-               builder?.elementEnd(
-                  element = node,
-                  builder = this,
-                  start = start,
-                  end = end,
-               )
+                  tag.elementEnd(
+                     element = node,
+                     builder = builder,
+                     start = start,
+                     end = end,
+                  )
+               }
             }
          }
       }
    }
 
-   private fun getBuilder(tag: String): Tag? {
-      return _tags[tag]?.invoke()?.also { tagBuilder ->
-         tagBuilder.inlineTextContentHolder = _inlineTextContentHolder
+   private fun getTag(tagName: String): Tag? {
+      return _tags[tagName]?.invoke()?.also { tag ->
+         tag.inlineTextContentHolder = _inlineTextContentHolder
       }
    }
 
