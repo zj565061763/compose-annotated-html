@@ -80,7 +80,8 @@ open class AnnotatedHtml {
             is TextNode -> {
                val text = node.text()
                if (tagBuilder != null) {
-                  tagBuilder.buildText(
+                  tagBuilder.elementText(
+                     element = element,
                      builder = this,
                      text = text,
                   )
@@ -100,7 +101,7 @@ open class AnnotatedHtml {
                val tag = node.tagName()
                val builder = getBuilder(tag)
 
-               builder?.beforeElement(
+               builder?.elementStart(
                   element = node,
                   builder = this,
                )
@@ -109,7 +110,7 @@ open class AnnotatedHtml {
                parseElement(node, builder)
                val end = length
 
-               builder?.afterElement(
+               builder?.elementEnd(
                   element = node,
                   builder = this,
                   start = start,
@@ -139,6 +140,25 @@ open class AnnotatedHtml {
    }
 
    abstract class Tag {
+      open fun elementStart(
+         element: Element,
+         builder: AnnotatedString.Builder,
+      ) = Unit
+
+      open fun elementText(
+         element: Element,
+         builder: AnnotatedString.Builder,
+         text: String,
+      ) {
+         builder.append(text)
+      }
+
+      open fun elementEnd(
+         element: Element,
+         builder: AnnotatedString.Builder,
+         start: Int, end: Int,
+      ) = Unit
+
       internal lateinit var inlineTextContentHolder: InlineTextContentHolder
 
       protected fun addInlineTextContent(
@@ -170,24 +190,6 @@ open class AnnotatedHtml {
             content = content,
          )
       }
-
-      open fun beforeElement(
-         element: Element,
-         builder: AnnotatedString.Builder,
-      ) = Unit
-
-      open fun buildText(
-         builder: AnnotatedString.Builder,
-         text: String,
-      ) {
-         builder.append(text)
-      }
-
-      open fun afterElement(
-         element: Element,
-         builder: AnnotatedString.Builder,
-         start: Int, end: Int,
-      ) = Unit
    }
 }
 

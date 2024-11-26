@@ -7,7 +7,7 @@ import com.sd.lib.compose.annotated.html.styleColor
 import org.jsoup.nodes.Element
 
 open class Tag_font : AnnotatedHtml.Tag() {
-   override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
+   override fun elementEnd(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val color = element.styleColor()
       if (color != null) {
          builder.addStyle(

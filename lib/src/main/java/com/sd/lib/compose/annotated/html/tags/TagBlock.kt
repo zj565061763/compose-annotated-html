@@ -10,14 +10,14 @@ import com.sd.lib.compose.annotated.html.styleTextDecoration
 import org.jsoup.nodes.Element
 
 open class TagBlock : AnnotatedHtml.Tag() {
-   override fun beforeElement(element: Element, builder: AnnotatedString.Builder) {
+   override fun elementStart(element: Element, builder: AnnotatedString.Builder) {
       val last = builder.last()
       if (last != null && last != '\n') {
          builder.append("\n")
       }
    }
 
-   override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
+   override fun elementEnd(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
 //      element.styleTextAlign()?.also { value ->
 //         builder.addStyle(
 //            style = ParagraphStyle(textAlign = value),

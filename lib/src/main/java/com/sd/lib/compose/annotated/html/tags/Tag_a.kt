@@ -15,7 +15,7 @@ open class Tag_a(
    private val linkInteractionListener: LinkInteractionListener? = null,
 ) : AnnotatedHtml.Tag() {
 
-   override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
+   override fun elementEnd(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val href = element.attr("href")
       val linkAnnotation = LinkAnnotation.Url(
          url = href,

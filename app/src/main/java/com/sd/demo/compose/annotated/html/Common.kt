@@ -47,7 +47,7 @@ private class AppAnnotatedHtml : AnnotatedHtml() {
 }
 
 private class AppTag_img : AnnotatedHtml.Tag() {
-   override fun beforeElement(element: Element, builder: AnnotatedString.Builder) {
+   override fun elementStart(element: Element, builder: AnnotatedString.Builder) {
       val src = element.attr("src")
       val alt = element.attr("alt")
       builder.appendInlineContent(id = src)

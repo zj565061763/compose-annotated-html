@@ -8,8 +8,8 @@ open class Tag_heading(
    private val style: SpanStyle,
 ) : TagBlock() {
 
-   override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
-      super.afterElement(element, builder, start, end)
+   override fun elementEnd(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
+      super.elementEnd(element, builder, start, end)
       builder.addStyle(
          style = style,
          start = start,

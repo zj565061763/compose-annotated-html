@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sd.demo.compose.annotated.html.theme.AppTheme
 import com.sd.lib.compose.annotated.html.AnnotatedHtml
+import org.jsoup.nodes.Element
 
 class Sample_custom : ComponentActivity() {
 
@@ -63,7 +64,7 @@ private fun Content(
 }
 
 private class Tag_user : AnnotatedHtml.Tag() {
-   override fun buildText(builder: AnnotatedString.Builder, text: String) {
+   override fun elementText(element: Element, builder: AnnotatedString.Builder, text: String) {
       builder.appendInlineContent(id = "user")
       addInlineTextContent(
          id = "user",
