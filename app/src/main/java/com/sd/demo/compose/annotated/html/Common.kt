@@ -34,8 +34,9 @@ fun AppTextView(
    Text(
       modifier = modifier,
       text = annotated,
-      fontSize = 14.sp,
       color = Color.Black,
+      fontSize = 14.sp,
+      lineHeight = 18.sp,
       inlineContent = annotatedHtml.inlineTextContentFlow.collectAsStateWithLifecycle().value,
    )
 }
