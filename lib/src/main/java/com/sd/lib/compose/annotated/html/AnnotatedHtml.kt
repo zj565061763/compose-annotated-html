@@ -160,17 +160,17 @@ open class AnnotatedHtml {
          )
       }
 
+      open fun beforeElement(
+         element: Element,
+         builder: AnnotatedString.Builder,
+      ) = Unit
+
       open fun buildText(
          builder: AnnotatedString.Builder,
          text: String,
       ) {
          builder.append(text)
       }
-
-      open fun beforeElement(
-         element: Element,
-         builder: AnnotatedString.Builder,
-      ) = Unit
 
       open fun afterElement(
          element: Element,

@@ -9,24 +9,21 @@ import org.jsoup.nodes.Element
 import org.jsoup.nodes.Node
 
 open class TagBlock : AnnotatedHtml.Tag() {
-   override fun beforeElement(element: Element, builder: AnnotatedString.Builder) {
-      builder.append("\n")
-   }
-
    override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
       val textAlign = when (element.getTextAlign()) {
-         "start" -> TextAlign.Start
+         "left" -> TextAlign.Left
+         "right" -> TextAlign.Right
          "center" -> TextAlign.Center
+         "justify" -> TextAlign.Justify
+         "start" -> TextAlign.Start
          "end" -> TextAlign.End
-         else -> null
+         else -> TextAlign.Unspecified
       }
-      if (textAlign != null) {
-         builder.addStyle(
-            style = ParagraphStyle(textAlign = textAlign),
-            start = start,
-            end = end,
-         )
-      }
+      builder.addStyle(
+         style = ParagraphStyle(textAlign = textAlign),
+         start = start,
+         end = end,
+      )
    }
 }
 
