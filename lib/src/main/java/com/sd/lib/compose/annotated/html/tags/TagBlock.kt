@@ -46,7 +46,7 @@ open class TagBlock : AnnotatedHtml.Tag() {
          )
       }
 
-      builder.appendLine()
+      builder.appendNewLineIfNeed()
    }
 }
 
