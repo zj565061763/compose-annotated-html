@@ -60,6 +60,9 @@ val htmlContent = """
     </p>
     <p style="text-align: end;">end</p>
     
+    <p style="text-decoration: line-through;">decoration line through</p>
+    <p style="text-decoration: underline;">decoration underline</p>
+    
     <p>b:<b>bbb</b> i:<i>iii</i> u:<u>uuu</u> strong:<strong>strong</strong> em:<em>em</em></p>
     
     <p>test a <a href="https://www.baidu.com">click</a> here</p>

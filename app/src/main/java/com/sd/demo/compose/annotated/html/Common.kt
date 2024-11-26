@@ -53,8 +53,8 @@ private class AppTag_img : AnnotatedHtml.Tag() {
       builder.appendInlineContent(id = src)
       addInlineTextContent(
          id = src,
-         placeholderWidth = 100.sp,
-         placeholderHeight = 100.sp,
+         placeholderWidth = 50.sp,
+         placeholderHeight = 50.sp,
          placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
          content = {
             Box(
