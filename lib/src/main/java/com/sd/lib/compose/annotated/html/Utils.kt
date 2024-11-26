@@ -1,12 +1,21 @@
 package com.sd.lib.compose.annotated.html
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import org.jsoup.nodes.Node
 
-internal fun Node.styleTextAlign(): String? {
+internal fun Node.styleTextAlign(): TextAlign? {
    val result = sTextAlignRegex.find(style()) ?: return null
-   return result.groups[1]?.value
+   return when (result.groups[1]?.value) {
+      "left" -> TextAlign.Left
+      "right" -> TextAlign.Right
+      "center" -> TextAlign.Center
+      "justify" -> TextAlign.Justify
+      "start" -> TextAlign.Start
+      "end" -> TextAlign.End
+      else -> null
+   }
 }
 
 internal fun Node.styleColor(): Color? {

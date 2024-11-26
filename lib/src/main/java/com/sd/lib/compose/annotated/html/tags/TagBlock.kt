@@ -14,20 +14,13 @@ open class TagBlock : AnnotatedHtml.Tag() {
    }
 
    override fun afterElement(element: Element, builder: AnnotatedString.Builder, start: Int, end: Int) {
-//      val textAlign = when (element.styleTextAlign()) {
-//         "left" -> TextAlign.Left
-//         "right" -> TextAlign.Right
-//         "center" -> TextAlign.Center
-//         "justify" -> TextAlign.Justify
-//         "start" -> TextAlign.Start
-//         "end" -> TextAlign.End
-//         else -> TextAlign.Unspecified
+//      element.styleTextAlign()?.also { value ->
+//         builder.addStyle(
+//            style = ParagraphStyle(textAlign = value),
+//            start = start,
+//            end = end,
+//         )
 //      }
-//      builder.addStyle(
-//         style = ParagraphStyle(textAlign = textAlign),
-//         start = start,
-//         end = end,
-//      )
 
       element.styleColor()?.also { value ->
          builder.addStyle(
