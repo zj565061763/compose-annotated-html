@@ -1,8 +1,6 @@
 package com.sd.lib.compose.annotated.html.tags
 
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.style.TextAlign
 import com.sd.lib.compose.annotated.html.AnnotatedHtml
 import com.sd.lib.compose.annotated.html.style
 import org.jsoup.nodes.Element
@@ -24,7 +22,7 @@ open class TagBlock : AnnotatedHtml.Tag() {
 //         else -> TextAlign.Unspecified
 //      }
 //      builder.addStyle(
-//         style = SpanStyle(ali = textAlign),
+//         style = ParagraphStyle(textAlign = textAlign),
 //         start = start,
 //         end = end,
 //      )
