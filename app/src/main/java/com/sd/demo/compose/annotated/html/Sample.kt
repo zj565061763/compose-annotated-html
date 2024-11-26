@@ -57,30 +57,25 @@ val htmlContent = """
     
     <p>b:<b>bbb</b> i:<i>iii</i> u:<u>uuu</u> strong:<strong>strong</strong> em:<em>em</em></p>
     
-    <p>Here's a <a href="https://www.example.com">link to Example</a>.</p>
+    <p>test a <a href="https://www.baidu.com">click</a> here</p>
     
-    <p>Here is an image:</p>
-    <img src="https://via.placeholder.com/150" alt="Placeholder" />
+    <p>
+      image:<img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="Placeholder" />
+    </p>
     
     <ul>
-        <li>ul item 1</li>
-        <li>ul item 2</li>
+        <li>ul li 1</li>
+        <li>ul li 2</li>
     </ul>
     
     <ol>
-        <li>ol item 1</li>
-        <li>ol item 2</li>
+        <li>ol li 1</li>
+        <li>ol li 2</li>
     </ol>
     
     <blockquote>This is a blockquote.</blockquote>
     
     <p>Here is a line break:</p>
     before br<br/>after br
-    
-    <p>Here is some preformatted text:</p>
-    <pre>
-        This is preformatted text.
-        Spacing is preserved.
-    </pre>
 </body>
 """

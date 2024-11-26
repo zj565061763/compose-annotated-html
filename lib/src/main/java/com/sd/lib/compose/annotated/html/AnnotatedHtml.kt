@@ -9,18 +9,21 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.sd.lib.compose.annotated.html.tags.Tag_a
 import com.sd.lib.compose.annotated.html.tags.Tag_b
+import com.sd.lib.compose.annotated.html.tags.Tag_blockquote
 import com.sd.lib.compose.annotated.html.tags.Tag_br
 import com.sd.lib.compose.annotated.html.tags.Tag_div
 import com.sd.lib.compose.annotated.html.tags.Tag_em
 import com.sd.lib.compose.annotated.html.tags.Tag_font
 import com.sd.lib.compose.annotated.html.tags.Tag_heading
 import com.sd.lib.compose.annotated.html.tags.Tag_i
+import com.sd.lib.compose.annotated.html.tags.Tag_li
+import com.sd.lib.compose.annotated.html.tags.Tag_ol
 import com.sd.lib.compose.annotated.html.tags.Tag_p
 import com.sd.lib.compose.annotated.html.tags.Tag_strong
 import com.sd.lib.compose.annotated.html.tags.Tag_u
+import com.sd.lib.compose.annotated.html.tags.Tag_ul
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -55,20 +58,24 @@ open class AnnotatedHtml {
    init {
       addTag("a") { Tag_a() }
       addTag("b") { Tag_b() }
+      addTag("blockquote") { Tag_blockquote() }
       addTag("br") { Tag_br() }
       addTag("div") { Tag_div() }
       addTag("em") { Tag_em() }
       addTag("font") { Tag_font() }
-      addTag("h1") { Tag_heading(style = SpanStyle(fontSize = 32.sp)) }
-      addTag("h2") { Tag_heading(style = SpanStyle(fontSize = 28.sp)) }
-      addTag("h3") { Tag_heading(style = SpanStyle(fontSize = 24.sp)) }
-      addTag("h4") { Tag_heading(style = SpanStyle(fontSize = 20.sp)) }
-      addTag("h5") { Tag_heading(style = SpanStyle(fontSize = 18.sp)) }
-      addTag("h6") { Tag_heading(style = SpanStyle(fontSize = 16.sp)) }
+      addTag("h1") { Tag_heading(style = SpanStyle(fontSize = (1.5).em)) }
+      addTag("h2") { Tag_heading(style = SpanStyle(fontSize = (1.4).em)) }
+      addTag("h3") { Tag_heading(style = SpanStyle(fontSize = (1.3).em)) }
+      addTag("h4") { Tag_heading(style = SpanStyle(fontSize = (1.2).em)) }
+      addTag("h5") { Tag_heading(style = SpanStyle(fontSize = (1.1).em)) }
+      addTag("h6") { Tag_heading(style = SpanStyle(fontSize = 1.em)) }
       addTag("i") { Tag_i() }
+      addTag("li") { Tag_li() }
+      addTag("ol") { Tag_ol() }
       addTag("p") { Tag_p() }
       addTag("strong") { Tag_strong() }
       addTag("u") { Tag_u() }
+      addTag("ul") { Tag_ul() }
    }
 
    private fun AnnotatedString.Builder.parseElement(element: Element, tagBuilder: Tag?) {
